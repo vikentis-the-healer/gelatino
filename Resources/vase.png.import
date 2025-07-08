@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccdh6pnf7herp"
-path="res://.godot/imported/gelatino_tileset.png-8eed1e73c0dd8bbb80c454c7a4916b47.ctex"
+uid="uid://ctrle47ajsn1v"
+path="res://.godot/imported/vase.png-8b0ac410baebbd2358bd65f7eb67dba7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gelatino_tileset.png"
-dest_files=["res://.godot/imported/gelatino_tileset.png-8eed1e73c0dd8bbb80c454c7a4916b47.ctex"]
+source_file="res://Resources/vase.png"
+dest_files=["res://.godot/imported/vase.png-8b0ac410baebbd2358bd65f7eb67dba7.ctex"]
 
 [params]
 
