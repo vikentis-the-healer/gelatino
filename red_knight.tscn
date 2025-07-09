@@ -1,0 +1,122 @@
+[gd_scene load_steps=15 format=3 uid="uid://bxxnneq5cfaap"]
+
+[ext_resource type="Script" uid="uid://csrnj1h67b6fw" path="res://red_knight.gd" id="1_2xq65"]
+[ext_resource type="Texture2D" uid="uid://dhes1y1lgjghv" path="res://Resources/red_knight_sprites.png" id="1_4p6ee"]
+[ext_resource type="Texture2D" uid="uid://oc00nxuphkmn" path="res://Resources/shadow.png" id="2_vvjdt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lp5xl"]
+atlas = ExtResource("1_4p6ee")
+region = Rect2(32, 16, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2d452"]
+atlas = ExtResource("1_4p6ee")
+region = Rect2(48, 16, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvjdt"]
+atlas = ExtResource("1_4p6ee")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2xq65"]
+atlas = ExtResource("1_4p6ee")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ayssd"]
+atlas = ExtResource("1_4p6ee")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3xpq"]
+atlas = ExtResource("1_4p6ee")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5rogq"]
+atlas = ExtResource("1_4p6ee")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4hatm"]
+atlas = ExtResource("1_4p6ee")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f3xpq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lp5xl")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_2d452")
+}],
+"loop": true,
+"name": &"AttackDown",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_vvjdt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2xq65")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ayssd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3xpq")
+}],
+"loop": true,
+"name": &"WalkDown",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5rogq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4hatm")
+}],
+"loop": true,
+"name": &"WalkSide",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vvjdt"]
+size = Vector2(15, 15)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2xq65"]
+radius = 150.0
+
+[node name="RedKnight" type="CharacterBody2D"]
+z_index = 1
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_2xq65")
+SPEED = 2000.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_f3xpq")
+animation = &"AttackDown"
+frame_progress = 0.556348
+
+[node name="Shadow" type="Sprite2D" parent="AnimatedSprite2D"]
+show_behind_parent = true
+position = Vector2(0, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_vvjdt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vvjdt")
+
+[node name="Detection Radius" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection Radius"]
+shape = SubResource("CircleShape2D_2xq65")
+debug_color = Color(0.734964, 0.407219, 0.62035, 0.42)
+
+[connection signal="body_entered" from="Detection Radius" to="." method="_on_detection_radius_body_entered"]
+[connection signal="body_exited" from="Detection Radius" to="." method="_on_detection_radius_body_exited"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwxufjienv148"
-path="res://.godot/imported/gelatino sprite.png-b3945cf80987934e61f32efb63cb7cc6.ctex"
+uid="uid://dhes1y1lgjghv"
+path="res://.godot/imported/red_knight_sprites.png-cf60e6b01176878c9199a96bc9756d65.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/gelatino sprite.png"
-dest_files=["res://.godot/imported/gelatino sprite.png-b3945cf80987934e61f32efb63cb7cc6.ctex"]
+source_file="res://Resources/red_knight_sprites.png"
+dest_files=["res://.godot/imported/red_knight_sprites.png-cf60e6b01176878c9199a96bc9756d65.ctex"]
 
 [params]
 
