@@ -4,6 +4,7 @@ extends CharacterBody2D
 enum States {WALK, DASH, JUMP}
 
 # This variable keeps track of the character's current state.
+var health := 20
 var state := States.WALK
 var sprite_direction := "Down"
 @export var SPEED := 20
@@ -31,7 +32,8 @@ func _process(delta: float) -> void:
 	move_and_slide()
 	resolve_collisions()
 	
-	#print("Velocity ="+str(velocity.length()))
+	if Input.is_action_pressed("Restart"):
+		get_tree().reload_current_scene()
 
 func jump():
 	state = States.JUMP
@@ -73,3 +75,8 @@ func control_sprite():
 
 func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
 	state = States.WALK
+	
+func take_damage():
+	print("Yowch!")
+	health -= 1
+	print("Health = " + str(health))

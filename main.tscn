@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=4 uid="uid://cx5gayt7pblht"]
+[gd_scene load_steps=17 format=4 uid="uid://cx5gayt7pblht"]
 
 [ext_resource type="Script" uid="uid://mhdlrgjswkim" path="res://main.gd" id="1_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://y8l4ru302qvb" path="res://player.tscn" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://1x1r8nnajcvf" path="res://Resources/gelatino_tileset.png" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://dajbe4nocqx12" path="res://vase.tscn" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://bxxnneq5cfaap" path="res://red_knight.tscn" id="5_lquwl"]
+[ext_resource type="Script" uid="uid://b3aewmkt3c7ht" path="res://health_bar.gd" id="6_7mycd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lquwl"]
 texture = ExtResource("3_h2yge")
@@ -196,9 +197,6 @@ tile_map_data = PackedByteArray("AAD7//7/AAACAAkAAAD6//7/AAACAAsAAAAAAAcAAAACAAs
 tile_set = SubResource("TileSet_0xm2m")
 y_sort_origin = 16
 
-[node name="Player" parent="." instance=ExtResource("1_ig7tw")]
-position = Vector2(112, 8)
-
 [node name="Roofs" type="TileMapLayer" parent="."]
 z_index = 2
 y_sort_enabled = true
@@ -212,6 +210,9 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Roofs/BuildingOne"]
 position = Vector2(-208, 216)
 shape = SubResource("RectangleShape2D_lquwl")
+
+[node name="Player" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(112, 8)
 
 [node name="Destructibles" type="Node" parent="."]
 
@@ -242,8 +243,16 @@ position = Vector2(-160, 400)
 position = Vector2(-208, 424)
 
 [node name="RedKnight5" parent="Knights" instance=ExtResource("5_lquwl")]
-position = Vector2(72, 48)
+position = Vector2(112, 160)
 SPEED = 3000.0
+
+[node name="RedKnight6" parent="Knights" instance=ExtResource("5_lquwl")]
+position = Vector2(-208, -80)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" type="Node2D" parent="HUD"]
+script = ExtResource("6_7mycd")
 
 [connection signal="body_entered" from="Roofs/BuildingOne" to="." method="_on_building_one_body_entered"]
 [connection signal="body_exited" from="Roofs/BuildingOne" to="." method="_on_building_one_body_exited"]

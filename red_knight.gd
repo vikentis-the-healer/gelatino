@@ -15,30 +15,33 @@ var time_left : int
 @export var SPEED := 500.0
 
 func _ready() -> void:
-	$AnimatedSprite2D.frame_progress = randf()
-
+	#$AnimationPlayer = randf()
+	$AttackBox/CollisionShape2D.disabled = true
+	
 func _process(delta: float) -> void:
 	if health <= 0:
 		die()
-	
 	control_sprite()
 	
 	if state == States.IDLE:
-		$AnimatedSprite2D.play("Idle")
+		$AnimationPlayer.play("Idle")
+		if player:
+			state = States.PURSUE
 	elif state == States.PURSUE:
-		#$AnimatedSprite2D.play("Walk" + sprite_direction)
-		$AnimatedSprite2D.play("AttackDown")
+		#print("I see 'em!")
+		$AnimationPlayer.play("Walk" + sprite_direction)
 		velocity = (player.position - position).normalized() * SPEED * delta
 		var distance_to_player = player.position - position
-		if distance_to_player.length() < 5:
-			state == States.ATTACK
+		if distance_to_player.length() < 30:
+			#print(distance_to_player.length())
+			state = States.ATTACK
 	elif state == States.ATTACK:
-		$AnimatedSprite2D.play("AttackDown")
+		$AnimationPlayer.play("Attack" + sprite_direction)
 	move_and_slide()
 
 func die():
 	if not dead:
-		$AnimatedSprite2D.visible = false
+		$Sprite2D.visible = false
 		$CollisionShape2D.disabled = true
 		time_left = 90
 		var instance = smoke_cloud.instantiate()
@@ -49,13 +52,13 @@ func die():
 		time_left -= 1
 		if time_left < 0:
 			queue_free()
-
+			
 func control_sprite():
-	$AnimatedSprite2D.flip_h = false
-
+	$Sprite2D.flip_h = false
+	
 	if velocity.x < -5:
 		sprite_direction = "Side"
-		$AnimatedSprite2D.flip_h = true
+		$Sprite2D.flip_h = true
 	elif velocity.x > 5:
 		sprite_direction = "Side"
 	elif velocity.y < -5:
@@ -64,11 +67,17 @@ func control_sprite():
 		sprite_direction = "Down"
 
 func _on_detection_radius_body_entered(body: CharacterBody2D) -> void:
-	if state == States.IDLE:
-		state = States.PURSUE
-		player = body
+	player = body
 
 
 func _on_detection_radius_body_exited(_body: CharacterBody2D) -> void:
-	if state == States.PURSUE:
-		state = States.IDLE
+	state = States.IDLE
+	player = null
+
+func _on_attack_box_body_entered(body) -> void:
+	var target = body
+	target.take_damage()
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	state = States.IDLE
