@@ -241,7 +241,7 @@ polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_7mycd"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7mycd"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3p3x6"]
 texture = ExtResource("2_pnapd")
 0:1/0 = 0
 0:1/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_1bvp3")
@@ -319,7 +319,7 @@ texture = ExtResource("2_pnapd")
 [sub_resource type="TileSet" id="TileSet_0xm2m"]
 occlusion_layer_0/light_mask = 1
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_7mycd")
+sources/0 = SubResource("TileSetAtlasSource_3p3x6")
 
 [node name="TempleLevel" type="Node2D"]
 y_sort_enabled = true
