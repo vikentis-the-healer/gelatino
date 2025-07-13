@@ -11,16 +11,18 @@ config_version=5
 [application]
 
 config/name="Gelatino"
-run/main_scene="uid://cx5gayt7pblht"
+run/main_scene="uid://bjcxudtsqrk5s"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=240
-window/size/viewport_height=160
+window/size/viewport_width=640
+window/size/viewport_height=360
+window/size/mode=2
 window/stretch/mode="viewport"
+window/stretch/scale_mode="integer"
 
 [editor]
 

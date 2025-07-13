@@ -1,17 +1,18 @@
-[gd_scene load_steps=22 format=3 uid="uid://y8l4ru302qvb"]
+[gd_scene load_steps=23 format=3 uid="uid://y8l4ru302qvb"]
 
 [ext_resource type="Script" uid="uid://bomj0vayuu6ew" path="res://player.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://oc00nxuphkmn" path="res://Resources/shadow.png" id="2_i3pqv"]
 [ext_resource type="Texture2D" uid="uid://xkklq4vakcwe" path="res://Resources/gelatino_sprite.png" id="3_2hs0m"]
 [ext_resource type="AudioStream" uid="uid://bj5voan3xjfv7" path="res://Resources/dash.mp3" id="4_sweqy"]
 [ext_resource type="AudioStream" uid="uid://45ef3eup72ss" path="res://Resources/jump.mp3" id="5_2hs0m"]
+[ext_resource type="Script" uid="uid://b3aewmkt3c7ht" path="res://health_bar.gd" id="6_2hs0m"]
 
-[sub_resource type="Gradient" id="Gradient_i3pqv"]
+[sub_resource type="Gradient" id="Gradient_2hs0m"]
 offsets = PackedFloat32Array(0, 0.899351, 1)
 colors = PackedColorArray(0, 1, 0.116667, 1, 0.711, 0.9, 0.73305, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_i3pqv"]
-gradient = SubResource("Gradient_i3pqv")
+gradient = SubResource("Gradient_2hs0m")
 width = 4
 height = 4
 fill = 1
@@ -22,13 +23,13 @@ fill_to = Vector2(0.5, 0)
 particle_flag_disable_z = true
 angular_velocity_min = -1.60933e-05
 angular_velocity_max = -1.60933e-05
-gravity = Vector3(0, -15, 0)
+gravity = Vector3(0, -5, 0)
 tangential_accel_min = -5.0
 tangential_accel_max = 5.0
 turbulence_noise_strength = 2.0
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_hqtel"]
-gradient = SubResource("Gradient_i3pqv")
+gradient = SubResource("Gradient_2hs0m")
 width = 8
 height = 8
 fill = 1
@@ -116,7 +117,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_ivps1"]
 resource_name = "JumpSide"
-length = 0.5
+length = 0.75
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -136,7 +137,7 @@ tracks/1/path = NodePath("Sprite2d:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5),
+"times": PackedFloat32Array(0, 0.3, 0.75),
 "transitions": PackedFloat32Array(0.5, 2, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, -32), Vector2(0, 0)]
@@ -290,6 +291,7 @@ process_material = SubResource("ParticleProcessMaterial_i3pqv")
 shape = SubResource("RectangleShape2D_sweqy")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 
 [node name="DashSFX" type="AudioStreamPlayer2D" parent="."]
@@ -302,5 +304,10 @@ stream = ExtResource("5_2hs0m")
 libraries = {
 &"": SubResource("AnimationLibrary_2hs0m")
 }
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" type="Node2D" parent="HUD"]
+script = ExtResource("6_2hs0m")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

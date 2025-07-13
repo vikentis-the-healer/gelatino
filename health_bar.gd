@@ -1,9 +1,8 @@
 extends Node2D
 
-@onready var health : int
+var health := 20
 
-func _process(_delta: float) -> void:
-	health = get_node("../../Player").health 
+func _process(_delta: float) -> void: 
 	queue_redraw()
 		
 func _draw():

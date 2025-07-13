@@ -9,7 +9,7 @@ enum States {IDLE, PURSUE, WANDER, ATTACK}
 var state := States.IDLE
 var sprite_direction : String
 var player = null
-var health := 2
+var health := 5
 var dead = false
 var time_left : int
 @export var SPEED := 500.0
@@ -75,9 +75,11 @@ func _on_detection_radius_body_exited(_body: CharacterBody2D) -> void:
 	player = null
 
 func _on_attack_box_body_entered(body) -> void:
-	var target = body
-	target.take_damage()
+	if not dead:
+		var target = body
+		target.take_damage()
+		target.velocity += velocity * 5
 
 
-func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
 	state = States.IDLE

@@ -1,0 +1,208 @@
+[gd_scene load_steps=12 format=3 uid="uid://bjcxudtsqrk5s"]
+
+[ext_resource type="Script" uid="uid://c5kanughqkfpm" path="res://title_screen.gd" id="1_ak2if"]
+[ext_resource type="PackedScene" uid="uid://bxxnneq5cfaap" path="res://red_knight.tscn" id="2_05l2w"]
+[ext_resource type="Texture2D" uid="uid://xkklq4vakcwe" path="res://Resources/gelatino_sprite.png" id="2_ig5kc"]
+[ext_resource type="Texture2D" uid="uid://oc00nxuphkmn" path="res://Resources/shadow.png" id="4_05l2w"]
+
+[sub_resource type="Gradient" id="Gradient_i3pqv"]
+offsets = PackedFloat32Array(0, 0.899351, 1)
+colors = PackedColorArray(0, 1, 0.116667, 1, 0.711, 0.9, 0.73305, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_h2yge"]
+gradient = SubResource("Gradient_i3pqv")
+width = 4
+height = 4
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1bvp3"]
+particle_flag_disable_z = true
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = -1.60933e-05
+gravity = Vector3(0, -5, 0)
+tangential_accel_min = -5.0
+tangential_accel_max = 5.0
+turbulence_noise_strength = 2.0
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lquwl"]
+gradient = SubResource("Gradient_i3pqv")
+width = 8
+height = 8
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Animation" id="Animation_h2yge"]
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Dolly:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-10, 260), Vector2(650, 260)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.99, 2.01, 3),
+"transitions": PackedFloat32Array(-2, -2, -2, -2),
+"update": 0,
+"values": [-0.0970098, 0.0247195, 0.151307, 0.0247195]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Label:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.99, 2.01, 3),
+"transitions": PackedFloat32Array(-2, -2, -2, -2),
+"update": 0,
+"values": [Vector2(206, 90), Vector2(225, 135), Vector2(267, 80), Vector2(225, 135)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Dolly/GelatinoSprite:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.75, 0.77, 1.07, 1.52, 1.56, 1.86, 2.31, 2.37, 2.67, 3.12, 3.17, 3.47, 3.92),
+"transitions": PackedFloat32Array(0.5, 2, 1, 0.5, 2, 1, 0.5, 2, 1, 0.5, 2, 1, 0.5, 2, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -32), Vector2(0, 0), Vector2(0, 0), Vector2(0, -32), Vector2(0, 0), Vector2(0, 0), Vector2(0, -32), Vector2(0, 0), Vector2(0, 0), Vector2(0, -32), Vector2(0, 0), Vector2(0, 0), Vector2(0, -32), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1bvp3"]
+resource_name = "jump"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Dolly/GelatinoSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.22, 0.5, 0.72, 0.98, 1, 1.2, 1.48, 1.7, 1.96667, 1.98, 2.18667, 2.46667, 2.68667, 2.94667, 2.96667, 3.16667, 3.44667, 3.66667, 3.94667),
+"transitions": PackedFloat32Array(1, 1.68179, 1, 1.68179, 1, 0.5, 1.68179, 1, 1.68179, 1, 0.5, 1.68179, 1, 1.68179, 1, 0.5, 1.68179, 1, 1.68179, 0.5),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -32), Vector2(0, 0), Vector2(0, -32), Vector2(0, 0), Vector2(0, 0), Vector2(0, -32), Vector2(0, 0), Vector2(0, -32), Vector2(0, 0), Vector2(0, 0), Vector2(0, -32), Vector2(0, 0), Vector2(0, -32), Vector2(0, 0), Vector2(0, 0), Vector2(0, -32), Vector2(0, 0), Vector2(0, -32), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Dolly:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-20, 250), Vector2(800, 259)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Label:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.99, 2.01, 3),
+"transitions": PackedFloat32Array(-2, -2, -2, -2),
+"update": 0,
+"values": [-0.0970098, 0.0247195, 0.151307, 0.0247195]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Label:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.99, 2.01, 3),
+"transitions": PackedFloat32Array(-2, -2, -2, -2),
+"update": 0,
+"values": [Vector2(206, 90), Vector2(225, 135), Vector2(267, 80), Vector2(225, 135)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lquwl"]
+_data = {
+&"RESET": SubResource("Animation_h2yge"),
+&"jump": SubResource("Animation_1bvp3")
+}
+
+[node name="TitleScreen" type="Node2D"]
+script = ExtResource("1_ak2if")
+
+[node name="Dolly" type="Node2D" parent="."]
+position = Vector2(-10, 260)
+
+[node name="RedKnight" parent="Dolly" instance=ExtResource("2_05l2w")]
+position = Vector2(-130, -16)
+scale = Vector2(4, 4)
+
+[node name="GelatinoSprite" type="Sprite2D" parent="Dolly"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_ig5kc")
+hframes = 4
+vframes = 4
+frame = 9
+
+[node name="SmollBubbles" type="GPUParticles2D" parent="Dolly/GelatinoSprite"]
+show_behind_parent = true
+texture_filter = 1
+amount = 32
+texture = SubResource("GradientTexture2D_h2yge")
+lifetime = 2.0
+randomness = 0.5
+process_material = SubResource("ParticleProcessMaterial_1bvp3")
+
+[node name="BigBubbles" type="GPUParticles2D" parent="Dolly/GelatinoSprite"]
+show_behind_parent = true
+texture_filter = 1
+texture = SubResource("GradientTexture2D_lquwl")
+lifetime = 2.0
+randomness = 0.5
+process_material = SubResource("ParticleProcessMaterial_1bvp3")
+
+[node name="Shadow" type="Sprite2D" parent="Dolly"]
+z_index = -1
+position = Vector2(0, 2)
+texture = ExtResource("4_05l2w")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_lquwl")
+}
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 206.0
+offset_top = 90.0
+offset_right = 276.0
+offset_bottom = 113.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.0970098
+scale = Vector2(2, 2)
+size_flags_horizontal = 4
+text = "Gelatino!"
+horizontal_alignment = 1
+vertical_alignment = 1

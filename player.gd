@@ -29,11 +29,11 @@ func _process(delta: float) -> void:
 	if state == States.DASH and velocity.length()<200:
 		velocity *= Vector2(1.1,1.1)
 
+	if health <= 0:
+		get_tree().reload_current_scene()
+
 	move_and_slide()
 	resolve_collisions()
-	
-	if Input.is_action_pressed("Restart"):
-		get_tree().reload_current_scene()
 
 func jump():
 	state = States.JUMP
@@ -58,6 +58,7 @@ func resolve_collisions() -> void:
 				rigid_body.health -= 1
 		if character_body and velocity.length() > 150:
 			character_body.health -= 1
+			character_body.velocity += velocity
 
 func control_sprite():
 	$Sprite2d.flip_h = false
@@ -72,11 +73,9 @@ func control_sprite():
 	else:
 		sprite_direction = "Down"
 
-
 func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
 	state = States.WALK
 	
 func take_damage():
-	print("Yowch!")
 	health -= 1
-	print("Health = " + str(health))
+	$HUD/HealthBar.health -= 1
