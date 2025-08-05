@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://dajbe4nocqx12"]
+
+[ext_resource type="Texture2D" uid="uid://ctrle47ajsn1v" path="res://gfx/vase.png" id="1_y28lw"]
+[ext_resource type="Script" uid="uid://c6vw3i76bvssq" path="res://scripts/destructable.gd" id="1_y78h2"]
+[ext_resource type="Texture2D" uid="uid://oc00nxuphkmn" path="res://gfx/shadow.png" id="2_1rscs"]
+[ext_resource type="PackedScene" uid="uid://bsiy8sg5bbx38" path="res://scenes/smoke_cloud.tscn" id="4_y78h2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y28lw"]
+size = Vector2(15, 12.5)
+
+[node name="Vase" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 15
+gravity_scale = 0.0
+lock_rotation = true
+contact_monitor = true
+max_contacts_reported = 100
+script = ExtResource("1_y78h2")
+metadata/_custom_type_script = "uid://c6vw3i76bvssq"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("1_y28lw")
+
+[node name="Shadow" type="Sprite2D" parent="Sprite2D"]
+show_behind_parent = true
+position = Vector2(0, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_1rscs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
+position = Vector2(0, -5.75)
+shape = SubResource("RectangleShape2D_y28lw")
+
+[node name="DeathFX" parent="." instance=ExtResource("4_y78h2")]

@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://bcgppj1pj5joo"]
+
+[ext_resource type="PackedScene" uid="uid://y8l4ru302qvb" path="res://scenes/player.tscn" id="1_w2l0f"]
+[ext_resource type="PackedScene" uid="uid://bsldxqeg2qrwt" path="res://scenes/save_tile.tscn" id="2_rawnq"]
+[ext_resource type="PackedScene" uid="uid://x2w2vxmbmya2" path="res://scenes/scene_door.tscn" id="3_rawnq"]
+[ext_resource type="PackedScene" uid="uid://cx1g3inrsfh1u" path="res://scenes/hurty_tile.tscn" id="4_ywssb"]
+[ext_resource type="PackedScene" uid="uid://bvq76op5x47x1" path="res://scenes/bat.tscn" id="5_rtd55"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_rtd55"]
+vertices = PackedVector2Array(1849.74, 865.859, -984.578, 832.117, -925.344, -605.469, 1627.29, -1029.42)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-935, -614, -995, 842, 1861, 876, 1636, -1041)])
+
+[node name="cave" type="Node" groups=["Maps"]]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_rtd55")
+
+[node name="Player" parent="." instance=ExtResource("1_w2l0f")]
+max_health = 2
+max_stamina = 10.0
+damp = 0.95
+
+[node name="SceneDoor" parent="." instance=ExtResource("3_rawnq")]
+position = Vector2(0, -55)
+target_scene = "temple"
+target_position = Vector2(-180, -88)
+
+[node name="HurtyTile" parent="." instance=ExtResource("4_ywssb")]
+position = Vector2(-190, -1)
+
+[node name="HurtyTile2" parent="." instance=ExtResource("4_ywssb")]
+position = Vector2(-255, -1)
+damage = 5
+
+[node name="SaveTile" parent="." instance=ExtResource("2_rawnq")]
+position = Vector2(-33, 50)
+
+[node name="Bat" parent="." instance=ExtResource("5_rtd55")]
+position = Vector2(-49, 176)

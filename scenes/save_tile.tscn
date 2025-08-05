@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsldxqeg2qrwt"]
+
+[ext_resource type="Script" uid="uid://bsbv754moxbvn" path="res://scripts/save_tile.gd" id="1_ufiqt"]
+
+[sub_resource type="Gradient" id="Gradient_tvtgs"]
+colors = PackedColorArray(1, 1, 1, 1, 0.282141, 0.469763, 0.524338, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yvbol"]
+gradient = SubResource("Gradient_tvtgs")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_psjja"]
+size = Vector2(16, 16)
+
+[node name="SaveTile" type="Area2D"]
+z_index = -2
+script = ExtResource("1_ufiqt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+rotation = 0.785398
+texture = SubResource("GradientTexture2D_yvbol")
+
+[node name="ColorRect" type="ColorRect" parent="Sprite2D"]
+show_behind_parent = true
+offset_left = -9.89949
+offset_top = -9.8995
+offset_right = 10.1005
+offset_bottom = 10.1005
+color = Color(0, 0, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+rotation = 0.785398
+shape = SubResource("RectangleShape2D_psjja")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

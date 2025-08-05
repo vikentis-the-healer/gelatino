@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://cx1g3inrsfh1u"]
+
+[ext_resource type="Script" uid="uid://jch6wjyk43fh" path="res://scripts/hurty_tile.gd" id="1_c6wyr"]
+[ext_resource type="Script" uid="uid://ct1eju4xxcyp3" path="res://scripts/hitbox.gd" id="2_y4m2f"]
+
+[sub_resource type="Gradient" id="Gradient_y4m2f"]
+colors = PackedColorArray(0.560803, 0.172506, 0.131922, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_b52jo"]
+gradient = SubResource("Gradient_y4m2f")
+width = 16
+height = 16
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y4m2f"]
+
+[node name="HurtyTile" type="Area2D"]
+z_index = -2
+script = ExtResource("1_c6wyr")
+
+[node name="Label" type="Label" parent="."]
+z_index = 5
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 16.0
+grow_vertical = 0
+text = "1"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+rotation = 0.785398
+texture = SubResource("GradientTexture2D_b52jo")
+
+[node name="ColorRect" type="ColorRect" parent="Sprite2D"]
+show_behind_parent = true
+offset_left = -9.89949
+offset_top = -9.8995
+offset_right = 10.1005
+offset_bottom = 10.1005
+color = Color(0, 0, 0, 1)
+
+[node name="HitBox" type="Area2D" parent="."]
+script = ExtResource("2_y4m2f")
+metadata/_custom_type_script = "uid://ct1eju4xxcyp3"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+rotation = 0.785398
+shape = SubResource("RectangleShape2D_y4m2f")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

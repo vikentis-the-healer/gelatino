@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://x2w2vxmbmya2"]
+
+[ext_resource type="Script" uid="uid://bc8nnp5g6ol5f" path="res://scripts/scene_door.gd" id="1_rvik8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mnq6q"]
+size = Vector2(32, 32)
+
+[node name="SceneDoor" type="Area2D"]
+script = ExtResource("1_rvik8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_mnq6q")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.66, 0.66, 1)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
