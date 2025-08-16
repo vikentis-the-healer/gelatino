@@ -1,18 +1,24 @@
-[gd_scene load_steps=26 format=3 uid="uid://y8l4ru302qvb"]
+[gd_scene load_steps=36 format=3 uid="uid://y8l4ru302qvb"]
 
 [ext_resource type="Script" uid="uid://bomj0vayuu6ew" path="res://scripts/player.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://oc00nxuphkmn" path="res://gfx/shadow.png" id="2_i3pqv"]
-[ext_resource type="Texture2D" uid="uid://xkklq4vakcwe" path="res://gfx/gelatino_sprite.png" id="3_2hs0m"]
-[ext_resource type="AudioStream" uid="uid://bj5voan3xjfv7" path="res://sfx/dash.mp3" id="4_sweqy"]
-[ext_resource type="AudioStream" uid="uid://45ef3eup72ss" path="res://sfx/jump.mp3" id="5_2hs0m"]
+[ext_resource type="Texture2D" uid="uid://bjkavkpqxvqg0" path="res://gfx/gelatino_sprites.png" id="2_ur7pv"]
+[ext_resource type="PackedScene" uid="uid://epba1a8mxvfj" path="res://gfx/sweating.tscn" id="5_3v2ag"]
+[ext_resource type="Script" uid="uid://blrkeiv57hvdm" path="res://scripts/player_camera.gd" id="5_f1ej7"]
 [ext_resource type="Script" uid="uid://ct1eju4xxcyp3" path="res://scripts/hitbox.gd" id="7_fjrip"]
+[ext_resource type="PackedScene" uid="uid://tws1k11uojqk" path="res://scenes/gui.tscn" id="8_jej6c"]
+[ext_resource type="Script" uid="uid://dov3557exf4u2" path="res://scripts/player_dashing.gd" id="9_d2wvv"]
+[ext_resource type="Script" uid="uid://bvjq2rak18y00" path="res://scripts/player_walking.gd" id="9_ur7pv"]
+[ext_resource type="Script" uid="uid://dkob3nxdwe60j" path="res://scripts/player_jumping.gd" id="9_y4r1p"]
+[ext_resource type="Script" uid="uid://o5ehwlantwqb" path="res://scripts/player_exhausted.gd" id="10_y4r1p"]
+[ext_resource type="Script" uid="uid://dm5jyfs21e6lu" path="res://scripts/player_dead.gd" id="11_d2wvv"]
 
-[sub_resource type="Gradient" id="Gradient_2hs0m"]
+[sub_resource type="Gradient" id="Gradient_f1ej7"]
 offsets = PackedFloat32Array(0, 0.899351, 1)
 colors = PackedColorArray(0, 1, 0.116667, 1, 0.711, 0.9, 0.73305, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_i3pqv"]
-gradient = SubResource("Gradient_2hs0m")
+gradient = SubResource("Gradient_f1ej7")
 width = 4
 height = 4
 fill = 1
@@ -28,25 +34,21 @@ tangential_accel_min = -5.0
 tangential_accel_max = 5.0
 turbulence_noise_strength = 2.0
 
+[sub_resource type="Gradient" id="Gradient_d2wvv"]
+offsets = PackedFloat32Array(0, 0.899351, 1)
+colors = PackedColorArray(0, 1, 0.116667, 1, 0.711, 0.9, 0.73305, 1, 1, 1, 1, 0)
+
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_hqtel"]
-gradient = SubResource("Gradient_2hs0m")
+gradient = SubResource("Gradient_d2wvv")
 width = 8
 height = 8
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sweqy"]
-size = Vector2(14, 6.875)
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tuyoq"]
-particle_flag_disable_z = true
-direction = Vector3(0, 0, 0)
-spread = 180.0
-initial_velocity_max = 117.81
-gravity = Vector3(0, 0, 0)
-radial_accel_min = -2.23517e-06
-radial_accel_max = 37.36
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f1ej7"]
+radius = 2.0
+height = 12.0
 
 [sub_resource type="Animation" id="Animation_dw050"]
 resource_name = "DashDown"
@@ -62,34 +64,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [7]
-}
-tracks/1/type = "audio"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("SFXPlayer")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"clips": [{
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource("4_sweqy")
-}],
-"times": PackedFloat32Array(0)
-}
-tracks/1/use_blend = true
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("DashHitBox/CollisionShape2D:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"values": [20]
 }
 
 [sub_resource type="Animation" id="Animation_b26j0"]
@@ -106,34 +81,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [6]
-}
-tracks/1/type = "audio"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("SFXPlayer")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"clips": [{
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource("4_sweqy")
-}],
-"times": PackedFloat32Array(0)
-}
-tracks/1/use_blend = true
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("DashHitBox/CollisionShape2D:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"values": [24]
 }
 
 [sub_resource type="Animation" id="Animation_bwjto"]
@@ -150,34 +98,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [3]
-}
-tracks/1/type = "audio"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("SFXPlayer")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"clips": [{
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource("4_sweqy")
-}],
-"times": PackedFloat32Array(0)
-}
-tracks/1/use_blend = true
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("DashHitBox/CollisionShape2D:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"values": [30]
 }
 
 [sub_resource type="Animation" id="Animation_tuyoq"]
@@ -192,7 +113,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [7]
+"values": [32]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -218,46 +139,61 @@ tracks/2/keys = {
 "update": 0,
 "values": [0.0, 1.5708, 3.14159, 4.71239, 6.54498]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
+
+[sub_resource type="Animation" id="Animation_ur7pv"]
+resource_name = "ExhaustedDown"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.75),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false]
+"values": [32, 33]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Shadow:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
+
+[sub_resource type="Animation" id="Animation_y4r1p"]
+resource_name = "ExhaustedSide"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.75),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false]
+"values": [36, 37]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("DeathPop:emitting")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
+
+[sub_resource type="Animation" id="Animation_d2wvv"]
+resource_name = "ExhaustedUp"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.75),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true]
+"values": [40, 41]
 }
 
 [sub_resource type="Animation" id="Animation_nvl01"]
 resource_name = "JumpDown"
-length = 0.75
+length = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -265,42 +201,15 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.125, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [8]
+"values": [12, 13, 14]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.75),
-"transitions": PackedFloat32Array(0.5, 2, 1),
-"update": 0,
-"values": [Vector2(0, -6), Vector2(0, -40), Vector2(0, -6)]
-}
-tracks/2/type = "audio"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("SFXPlayer")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"clips": [{
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource("5_2hs0m")
-}],
-"times": PackedFloat32Array(0)
-}
-tracks/2/use_blend = true
 
 [sub_resource type="Animation" id="Animation_ivps1"]
 resource_name = "JumpSide"
-length = 0.75
+length = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -308,42 +217,15 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.125, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [9]
+"values": [16, 17, 18]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.75),
-"transitions": PackedFloat32Array(0.5, 2, 1),
-"update": 0,
-"values": [Vector2(0, -6), Vector2(0, -40), Vector2(0, -6)]
-}
-tracks/2/type = "audio"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("SFXPlayer")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"clips": [{
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource("5_2hs0m")
-}],
-"times": PackedFloat32Array(0)
-}
-tracks/2/use_blend = true
 
 [sub_resource type="Animation" id="Animation_urp6f"]
 resource_name = "JumpUp"
-length = 0.75
+length = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -351,38 +233,11 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.125, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [2]
+"values": [28, 29, 30]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.75),
-"transitions": PackedFloat32Array(0.5, 2, 1),
-"update": 0,
-"values": [Vector2(0, -6), Vector2(0, -40), Vector2(0, -6)]
-}
-tracks/2/type = "audio"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("SFXPlayer")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"clips": [{
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource("5_2hs0m")
-}],
-"times": PackedFloat32Array(0)
-}
-tracks/2/use_blend = true
 
 [sub_resource type="Animation" id="Animation_sweqy"]
 length = 0.001
@@ -396,7 +251,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [4]
+"values": [0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -410,66 +265,6 @@ tracks/1/keys = {
 "update": 0,
 "values": [0.0]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -6)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Shadow:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("DeathPop:emitting")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("DashHitBox/CollisionShape2D:disabled")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
 
 [sub_resource type="Animation" id="Animation_1jxqw"]
 resource_name = "WalkDown"
@@ -481,22 +276,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [4, 5]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("DashHitBox/CollisionShape2D:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"values": [0, 1, 2, 3]
 }
 
 [sub_resource type="Animation" id="Animation_n7ghd"]
@@ -509,22 +292,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.0333333, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [0, 1]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("DashHitBox/CollisionShape2D:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"values": [8, 9, 10, 11]
 }
 
 [sub_resource type="Animation" id="Animation_2hs0m"]
@@ -537,22 +308,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [2, 3]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("DashHitBox/CollisionShape2D:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"values": [4, 5, 6, 7]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2hs0m"]
@@ -561,6 +320,9 @@ _data = {
 &"DashSide": SubResource("Animation_b26j0"),
 &"DashUp": SubResource("Animation_bwjto"),
 &"Death": SubResource("Animation_tuyoq"),
+&"ExhaustedDown": SubResource("Animation_ur7pv"),
+&"ExhaustedSide": SubResource("Animation_y4r1p"),
+&"ExhaustedUp": SubResource("Animation_d2wvv"),
 &"JumpDown": SubResource("Animation_nvl01"),
 &"JumpSide": SubResource("Animation_ivps1"),
 &"JumpUp": SubResource("Animation_urp6f"),
@@ -572,37 +334,50 @@ _data = {
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_smehm"]
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tuyoq"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_max = 117.81
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -2.23517e-06
+radial_accel_max = 37.36
+
 [node name="Player" type="CharacterBody2D"]
 texture_filter = 1
 collision_mask = 14
 motion_mode = 1
+wall_min_slide_angle = 0.785398
 script = ExtResource("1_4flbx")
-max_health = null
-max_stamina = null
-start_speed = null
-damp = null
+speed = 150
+accel = 500
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
 texture_filter = 1
-position = Vector2(0, -6)
 scale = Vector2(0.75, 0.75)
-texture = ExtResource("3_2hs0m")
+texture = ExtResource("2_ur7pv")
+offset = Vector2(0, -8)
 hframes = 4
-vframes = 4
-frame = 4
+vframes = 11
 
-[node name="SmollBubbles" type="GPUParticles2D" parent="Sprite2D"]
-show_behind_parent = true
+[node name="BubbleFX" type="Node2D" parent="Sprite2D"]
+y_sort_enabled = true
+
+[node name="SmollBubbles" type="GPUParticles2D" parent="Sprite2D/BubbleFX"]
+y_sort_enabled = true
 texture_filter = 1
+position = Vector2(0, -8)
 amount = 32
 texture = SubResource("GradientTexture2D_i3pqv")
 lifetime = 2.0
 randomness = 0.5
 process_material = SubResource("ParticleProcessMaterial_i3pqv")
 
-[node name="BigBubbles" type="GPUParticles2D" parent="Sprite2D"]
-show_behind_parent = true
+[node name="BigBubbles" type="GPUParticles2D" parent="Sprite2D/BubbleFX"]
+y_sort_enabled = true
 texture_filter = 1
+position = Vector2(0, -8)
 texture = SubResource("GradientTexture2D_hqtel")
 lifetime = 2.0
 randomness = 0.5
@@ -610,15 +385,37 @@ process_material = SubResource("ParticleProcessMaterial_i3pqv")
 
 [node name="Shadow" type="Sprite2D" parent="."]
 show_behind_parent = true
-position = Vector2(0, -7)
+position = Vector2(0, -6)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_i3pqv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -1.5625)
-shape = SubResource("RectangleShape2D_sweqy")
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_f1ej7")
 
-[node name="SFXPlayer" type="AudioStreamPlayer2D" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_2hs0m")
+}
+autoplay = "RESET"
+
+[node name="DashHitBox" type="Area2D" parent="."]
+collision_mask = 12
+monitoring = false
+monitorable = false
+script = ExtResource("7_fjrip")
+damage = 2
+metadata/_custom_type_script = "uid://ct1eju4xxcyp3"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DashHitBox"]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_smehm")
+debug_color = Color(0.799942, 0.21835, 0.880199, 0.42)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("5_f1ej7")
+decay = 5.0
+max_offset = Vector2(8, 8)
 
 [node name="DeathPop" type="GPUParticles2D" parent="."]
 position = Vector2(0, -6)
@@ -629,26 +426,30 @@ one_shot = true
 explosiveness = 0.9
 process_material = SubResource("ParticleProcessMaterial_tuyoq")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_2hs0m")
-}
-autoplay = "RESET"
+[node name="Sweating" parent="." instance=ExtResource("5_3v2ag")]
 
-[node name="DashHitBox" type="Area2D" parent="."]
-collision_mask = 12
-monitorable = false
-script = ExtResource("7_fjrip")
-damage = 2
-metadata/_custom_type_script = "uid://ct1eju4xxcyp3"
+[node name="DashSFX" type="AudioStreamPlayer" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DashHitBox"]
-position = Vector2(0, -6)
-shape = SubResource("CircleShape2D_smehm")
-disabled = true
-debug_color = Color(0.799942, 0.21835, 0.880199, 0.42)
+[node name="JumpSFX" type="AudioStreamPlayer" parent="."]
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="GUI" parent="." instance=ExtResource("8_jej6c")]
+visible = false
+
+[node name="Walking" type="Node" parent="."]
+script = ExtResource("9_ur7pv")
+
+[node name="Jumping" type="Node" parent="."]
+script = ExtResource("9_y4r1p")
+
+[node name="Dashing" type="Node" parent="."]
+script = ExtResource("9_d2wvv")
+
+[node name="Exhausted" type="Node" parent="."]
+script = ExtResource("10_y4r1p")
+
+[node name="Dead" type="Node" parent="."]
+script = ExtResource("11_d2wvv")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="DashHitBox" to="." method="_on_hit_box_body_entered"]
+[connection signal="dealt_damage" from="DashHitBox" to="." method="_on_dash_hit_box_dealt_damage"]

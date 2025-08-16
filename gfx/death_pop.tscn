@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://b31765faxo5sm"]
+
+[sub_resource type="Gradient" id="Gradient_2hs0m"]
+offsets = PackedFloat32Array(0, 0.899351, 1)
+colors = PackedColorArray(0, 1, 0.116667, 1, 0.711, 0.9, 0.73305, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_udq76"]
+gradient = SubResource("Gradient_2hs0m")
+width = 8
+height = 8
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3eiqf"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_max = 117.81
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -2.23517e-06
+radial_accel_max = 37.36
+
+[node name="DeathPop" type="GPUParticles2D"]
+emitting = false
+amount = 32
+texture = SubResource("GradientTexture2D_udq76")
+one_shot = true
+explosiveness = 0.9
+process_material = SubResource("ParticleProcessMaterial_3eiqf")

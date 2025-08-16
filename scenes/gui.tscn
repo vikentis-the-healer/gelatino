@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://tws1k11uojqk"]
+[gd_scene load_steps=6 format=3 uid="uid://tws1k11uojqk"]
 
 [ext_resource type="Script" uid="uid://bk26m52eaw20m" path="res://scripts/gui.gd" id="1_efmwq"]
+
+[sub_resource type="Theme" id="Theme_efmwq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_efmwq"]
 bg_color = Color(0.1, 0.1, 0.1, 1)
@@ -20,11 +22,21 @@ ProgressBar/styles/fill = SubResource("StyleBoxFlat_mfius")
 process_mode = 3
 script = ExtResource("1_efmwq")
 
+[node name="PauseShader" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.388235)
+
 [node name="Bars" type="VBoxContainer" parent="."]
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 184.0
-offset_bottom = 28.0
+offset_right = 84.0
+offset_bottom = 20.0
+theme = SubResource("Theme_efmwq")
 
 [node name="HealthBar" type="ProgressBar" parent="Bars"]
 modulate = Color(1, 0.27, 0.27, 1)
@@ -47,14 +59,17 @@ layout_mode = 2
 
 [node name="MaxHealth" type="Label" parent="Bars/Stats"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 8
 text = "Maximum Health: 0"
 
 [node name="MaxStam" type="Label" parent="Bars/Stats"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 8
 text = "Maximum Stamina: 0"
 
 [node name="Damage" type="Label" parent="Bars/Stats"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 8
 text = "Damage: 0"
 
 [node name="PauseMenu" type="VBoxContainer" parent="."]
@@ -65,33 +80,37 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -94.5
-offset_top = -68.0
-offset_right = 94.5
-offset_bottom = 68.0
+offset_left = -67.0
+offset_top = -38.0
+offset_right = 67.0
+offset_bottom = 38.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Resume" type="Button" parent="PauseMenu"]
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../LoadLastSave")
+theme_override_font_sizes/font_size = 8
 text = "Resume"
 
 [node name="LoadLastSave" type="Button" parent="PauseMenu"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../Resume")
 focus_neighbor_bottom = NodePath("../QuitToMenu")
+theme_override_font_sizes/font_size = 8
 text = "Reload Last Checkpoint"
 
 [node name="QuitToMenu" type="Button" parent="PauseMenu"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../LoadLastSave")
 focus_neighbor_bottom = NodePath("../QuitToDesktop")
+theme_override_font_sizes/font_size = 8
 text = "Quit to Main Menu"
 
 [node name="QuitToDesktop" type="Button" parent="PauseMenu"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../QuitToMenu")
+theme_override_font_sizes/font_size = 8
 text = "Quit to Desktop"
 
 [node name="DeathMenu" type="VBoxContainer" parent="."]
@@ -111,6 +130,7 @@ grow_vertical = 2
 [node name="YouDied" type="Label" parent="DeathMenu"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
 text = "You died!
 Try again?"
 
@@ -120,6 +140,7 @@ layout_mode = 2
 [node name="Reload" type="Button" parent="DeathMenu/HBoxContainer"]
 layout_mode = 2
 focus_neighbor_right = NodePath("../Quit")
+theme_override_font_sizes/font_size = 8
 text = "Reload Last
 Save
 "
@@ -127,25 +148,9 @@ Save
 [node name="Quit" type="Button" parent="DeathMenu/HBoxContainer"]
 layout_mode = 2
 focus_neighbor_left = NodePath("../Reload")
+theme_override_font_sizes/font_size = 8
 text = "Quit to
 Menu"
-
-[node name="CharacterList" type="ItemList" parent="."]
-process_mode = 4
-visible = false
-clip_contents = false
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 0
-grow_vertical = 2
-allow_reselect = true
-auto_width = true
-item_count = 3
-item_0/text = "Test1"
-item_1/text = "Test2"
-item_2/text = "Test3"
 
 [connection signal="pressed" from="PauseMenu/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="PauseMenu/LoadLastSave" to="." method="_on_load_last_save_pressed"]
@@ -153,5 +158,3 @@ item_2/text = "Test3"
 [connection signal="pressed" from="PauseMenu/QuitToDesktop" to="." method="_on_quit_to_desktop_pressed"]
 [connection signal="pressed" from="DeathMenu/HBoxContainer/Reload" to="." method="_on_reload_pressed"]
 [connection signal="pressed" from="DeathMenu/HBoxContainer/Quit" to="." method="_on_quit_pressed"]
-[connection signal="item_activated" from="CharacterList" to="." method="_on_character_list_item_activated"]
-[connection signal="item_clicked" from="CharacterList" to="." method="_on_character_list_item_clicked"]

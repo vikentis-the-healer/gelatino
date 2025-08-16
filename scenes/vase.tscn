@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://ctrle47ajsn1v" path="res://gfx/vase.png" id="1_y28lw"]
 [ext_resource type="Script" uid="uid://c6vw3i76bvssq" path="res://scripts/destructable.gd" id="1_y78h2"]
 [ext_resource type="Texture2D" uid="uid://oc00nxuphkmn" path="res://gfx/shadow.png" id="2_1rscs"]
-[ext_resource type="PackedScene" uid="uid://bsiy8sg5bbx38" path="res://scenes/smoke_cloud.tscn" id="4_y78h2"]
+[ext_resource type="PackedScene" uid="uid://bsiy8sg5bbx38" path="res://gfx/smoke_cloud.tscn" id="4_y78h2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y28lw"]
 size = Vector2(15, 12.5)

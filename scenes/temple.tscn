@@ -1,14 +1,13 @@
-[gd_scene load_steps=17 format=4 uid="uid://cx5gayt7pblht"]
+[gd_scene load_steps=16 format=4 uid="uid://cx5gayt7pblht"]
 
 [ext_resource type="Script" uid="uid://mhdlrgjswkim" path="res://scripts/temple.gd" id="1_40f1g"]
 [ext_resource type="Texture2D" uid="uid://1x1r8nnajcvf" path="res://gfx/gelatino_tileset.png" id="2_7p6xb"]
+[ext_resource type="PackedScene" uid="uid://5pso3xtuqfh" path="res://scenes/world_boundaries.tscn" id="2_hapkp"]
 [ext_resource type="PackedScene" uid="uid://y8l4ru302qvb" path="res://scenes/player.tscn" id="3_hapkp"]
 [ext_resource type="PackedScene" uid="uid://dajbe4nocqx12" path="res://scenes/vase.tscn" id="4_a5n41"]
-[ext_resource type="PackedScene" uid="uid://bxxnneq5cfaap" path="res://scenes/red_knight.tscn" id="5_tgjw6"]
 [ext_resource type="Script" uid="uid://bv37n13klikc0" path="res://scripts/roof.gd" id="6_xp7k0"]
 [ext_resource type="PackedScene" uid="uid://x2w2vxmbmya2" path="res://scenes/scene_door.tscn" id="8_a5n41"]
 [ext_resource type="PackedScene" uid="uid://bsldxqeg2qrwt" path="res://scenes/save_tile.tscn" id="8_hapkp"]
-[ext_resource type="PackedScene" uid="uid://bvq76op5x47x1" path="res://scenes/bat.tscn" id="9_a5n41"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pnapd"]
 texture = ExtResource("2_7p6xb")
@@ -520,7 +519,7 @@ texture = ExtResource("2_7p6xb")
 sources/0 = SubResource("TileSetAtlasSource_pe2ao")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v7nl3"]
-size = Vector2(128, 114)
+size = Vector2(128, 133)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_td335"]
 texture = ExtResource("2_7p6xb")
@@ -657,8 +656,15 @@ physics_layer_0/collision_layer = 2
 physics_layer_0/collision_mask = 0
 sources/2 = SubResource("TileSetAtlasSource_td335")
 
-[node name="temple" type="Node" groups=["Maps"]]
+[node name="Temple" type="Node" groups=["Maps"]]
 script = ExtResource("1_40f1g")
+
+[node name="WorldBoundaries" parent="." instance=ExtResource("2_hapkp")]
+unique_name_in_owner = true
+top = 240.0
+bottom = 304.0
+left = 432.0
+right = 208.0
 
 [node name="Backdrop" type="TileMapLayer" parent="."]
 z_index = -5
@@ -676,7 +682,6 @@ tile_map_data = PackedByteArray("AADz/wwAAAAFAAAAAAD0/wwAAAAFAAAAAAD1/wwAAAAFAAA
 tile_set = SubResource("TileSet_td335")
 
 [node name="Roofs" type="Node2D" parent="."]
-visible = false
 z_index = 2
 
 [node name="RoofModulator" type="CanvasModulate" parent="Roofs"]
@@ -692,11 +697,16 @@ script = ExtResource("6_xp7k0")
 position = Vector2(5, 8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Roofs/CliffEdgeHouse/Area2D"]
-position = Vector2(-5, -104)
+position = Vector2(-5, -94.5)
 shape = SubResource("RectangleShape2D_v7nl3")
 
+[node name="SceneDoor" parent="." instance=ExtResource("8_a5n41")]
+position = Vector2(-176, -100)
+target_scene = "cave"
+target_position = Vector2(0, -168)
+
 [node name="Walls" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAD8//3/AgAAAAEAAAD8//7/AgAAAAIAAAD9//3/AgABAAEAAAD9//7/AgABAAIAAAD+//3/AgABAAEAAAD+//7/AgABAAIAAAABAP3/AgABAAEAAAABAP7/AgABAAIAAAACAP3/AgABAAEAAAACAP7/AgABAAIAAAADAP3/AgACAAEAAAADAP7/AgACAAIAAAAAAPX/AgABAAEAAAAAAPb/AgABAAIAAAD///X/AgABAAEAAAD///b/AgABAAIAAAD+//X/AgABAAEAAAD+//b/AgABAAIAAAD9//X/AgABAAEAAAD9//b/AgABAAIAAAD8//X/AgAAAAMAAAD8//b/AgAAAAQAAAACAPX/AgABAAEAAAACAPb/AgABAAIAAAADAPX/AgABAAMAAAADAPb/AgABAAQAAAABAPX/AgABAAEAAAABAPb/AgABAAIAAAD8//f/AgAAAAAAAAD8//j/AgAAAAAAAAD8//n/AgAAAAAAAAD8//r/AgAAAAAAAAD8//v/AgAAAAAAAAD8//z/AgAAAAAAAAADAPz/AgACAAAAAAADAPv/AgACAAAAAAADAPr/AgACAAAAAAADAPn/AgACAAAAAAADAPj/AgACAAAAAAADAPf/AgACAAAAAAD///3/AgACAAMAAAD///7/AgACAAQAAAAAAP3/AgADAAMAAAAAAP7/AgADAAQAAADx/wwAAgADAAAAAADx/w0AAgADAAEAAADy/wwAAgAEAAAAAADy/w0AAgAEAAEAAADv/w0AAgADAAAAAADv/w4AAgADAAEAAADw/w0AAgAEAAAAAADw/w4AAgAEAAEAAADt/w4AAgADAAAAAADt/w8AAgADAAEAAADu/w4AAgAEAAAAAADu/w8AAgAEAAEAAADv/w8AAgAAAAIAAADw/w8AAgABAAIAAADx/w4AAgABAAEAAADx/w8AAgABAAIAAADy/w4AAgACAAEAAADy/w8AAgACAAIAAAA=")
+tile_map_data = PackedByteArray("AAD8//3/AgAAAAEAAAD8//7/AgAAAAIAAAD9//3/AgABAAEAAAD9//7/AgABAAIAAAD+//3/AgABAAEAAAD+//7/AgABAAIAAAABAP3/AgABAAEAAAABAP7/AgABAAIAAAACAP3/AgABAAEAAAACAP7/AgABAAIAAAADAP3/AgACAAEAAAADAP7/AgACAAIAAAAAAPX/AgABAAEAAAAAAPb/AgABAAIAAAD///X/AgABAAEAAAD///b/AgABAAIAAAD+//X/AgABAAEAAAD+//b/AgABAAIAAAD9//X/AgABAAEAAAD9//b/AgABAAIAAAD8//X/AgAAAAMAAAD8//b/AgAAAAQAAAACAPX/AgABAAEAAAACAPb/AgABAAIAAAADAPX/AgABAAMAAAADAPb/AgABAAQAAAABAPX/AgABAAEAAAABAPb/AgABAAIAAAD8//f/AgAAAAAAAAD8//j/AgAAAAAAAAD8//n/AgAAAAAAAAD8//r/AgAAAAAAAAD8//v/AgAAAAAAAAD8//z/AgAAAAAAAAADAPz/AgACAAAAAAADAPv/AgACAAAAAAADAPr/AgACAAAAAAADAPn/AgACAAAAAAADAPj/AgACAAAAAAADAPf/AgACAAAAAAD///3/AgACAAMAAAD///7/AgACAAQAAAAAAP3/AgADAAMAAAAAAP7/AgADAAQAAADx/wwAAgADAAAAAADx/w0AAgADAAEAAADy/wwAAgAEAAAAAADy/w0AAgAEAAEAAADv/w0AAgADAAAAAADv/w4AAgADAAEAAADw/w0AAgAEAAAAAADw/w4AAgAEAAEAAADt/w4AAgADAAAAAADt/w8AAgADAAEAAADu/w4AAgAEAAAAAADu/w8AAgAEAAEAAADv/w8AAgAAAAIAAADw/w8AAgABAAIAAADx/w4AAgABAAEAAADx/w8AAgABAAIAAADy/w4AAgACAAEAAADy/w8AAgACAAIAAAD0//n/AgACAAMAAAD0//r/AgACAAQAAAD1//n/AgADAAMAAAD1//r/AgADAAQAAADz//n/AgAAAAEAAADz//r/AgAAAAIAAAD2//n/AgACAAEAAAD2//r/AgACAAIAAADz//j/AgAJAAEAAAD0//j/AgAKAAEAAAD2//j/AgAJAAEAABD1//j/AgAKAAEAABDz//f/AgAJAAAAAAD0//f/AgAKAAAAAAD2//f/AgAJAAAAABD1//f/AgAKAAAAABA=")
 tile_set = SubResource("TileSet_bnre0")
 
 [node name="Vase" parent="." instance=ExtResource("4_a5n41")]
@@ -712,25 +722,6 @@ position = Vector2(46, -93)
 position = Vector2(88, 344)
 mass = 10.0
 
-[node name="RedKnight" parent="." instance=ExtResource("5_tgjw6")]
-position = Vector2(-232, 384)
-
-[node name="RedKnight2" parent="." instance=ExtResource("5_tgjw6")]
-position = Vector2(-184, 352)
-
-[node name="RedKnight3" parent="." instance=ExtResource("5_tgjw6")]
-position = Vector2(-160, 400)
-
-[node name="RedKnight4" parent="." instance=ExtResource("5_tgjw6")]
-position = Vector2(-208, 424)
-
-[node name="RedKnight5" parent="." instance=ExtResource("5_tgjw6")]
-position = Vector2(-441, 366)
-SPEED = 3000.0
-
-[node name="RedKnight6" parent="." instance=ExtResource("5_tgjw6")]
-position = Vector2(-492, 275)
-
 [node name="SaveTile2" parent="." instance=ExtResource("8_hapkp")]
 position = Vector2(-370, 103)
 
@@ -739,12 +730,26 @@ position = Vector2(24, 88)
 
 [node name="Player" parent="." instance=ExtResource("3_hapkp")]
 
-[node name="SceneDoor" parent="." instance=ExtResource("8_a5n41")]
-position = Vector2(-182, -112)
-target_scene = "cave"
+[node name="Vase3" parent="." instance=ExtResource("4_a5n41")]
+position = Vector2(-200, 91)
 
-[node name="Bat" parent="." instance=ExtResource("9_a5n41")]
-position = Vector2(-183, 111)
+[node name="Vase6" parent="." instance=ExtResource("4_a5n41")]
+position = Vector2(-140, 53)
+
+[node name="Vase7" parent="." instance=ExtResource("4_a5n41")]
+position = Vector2(-46, 49)
+
+[node name="Vase8" parent="." instance=ExtResource("4_a5n41")]
+position = Vector2(-135, -23)
+
+[node name="Vase9" parent="." instance=ExtResource("4_a5n41")]
+position = Vector2(-110, 76)
+
+[node name="Vase10" parent="." instance=ExtResource("4_a5n41")]
+position = Vector2(84, 64)
+
+[node name="Vase11" parent="." instance=ExtResource("4_a5n41")]
+position = Vector2(-35, 83)
 
 [connection signal="body_entered" from="Roofs/CliffEdgeHouse/Area2D" to="Roofs/CliffEdgeHouse" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Roofs/CliffEdgeHouse/Area2D" to="Roofs/CliffEdgeHouse" method="_on_area_2d_body_exited"]
